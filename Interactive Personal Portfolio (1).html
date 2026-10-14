@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayra Ferraz | Gerente de Projetos & Computação Quântica</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js for Quantum Graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        neonYellow: {
+                            50: '#fffee6',
+                            100: '#fffcc2',
+                            200: '#fff885',
+                            300: '#ffef3d',
+                            400: '#ffe600',
+                            500: '#e5cc00',
+                            600: '#b89e00',
+                        },
+                        cyberDark: '#030712',
+                        cyberCard: '#0b0f19',
+                        cyberBorder: '#1e293b'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                        display: ['Orbitron', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #030712;
+            color: #f3f4f6;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(to right, rgba(30, 41, 59, 0.2) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(30, 41, 59, 0.2) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-attachment: fixed;
+        }
+        .neon-glow {
+            text-shadow: 0 0 10px rgba(255, 230, 0, 0.5), 0 0 20px rgba(255, 230, 0, 0.3);
+        }
+        .box-glow {
+            box-shadow: 0 0 20px rgba(255, 230, 0, 0.1), inset 0 0 15px rgba(255, 230, 0, 0.05);
+            border: 1px solid rgba(255, 230, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .box-glow:hover {
+            box-shadow: 0 0 30px rgba(255, 230, 0, 0.25), inset 0 0 20px rgba(255, 230, 0, 0.1);
+            border-color: rgba(255, 230, 0, 0.6);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #b89e00;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffe600;
+        }
+        .piano-key {
+            transition: all 0.1s ease;
+            user-select: none;
+        }
+        .piano-key:active, .piano-key.active {
+            background: #ffe600 !important;
+            color: #030712 !important;
+            box-shadow: 0 0 15px #ffe600;
+        }
+        .qubit-node {
+            transition: all 0.2s ease;
+        }
+        .qubit-node:hover {
+            border-color: #ffe600;
+            box-shadow: 0 0 15px rgba(255, 230, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-cyberDark text-gray-100 font-sans antialiased selection:bg-neonYellow-400 selection:text-black">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-cyberDark/80 border-b border-cyberBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-cyberCard border border-neonYellow-400/50 flex items-center justify-center font-display text-neonYellow-400 font-bold text-lg box-glow">
+                    MF
+                </div>
+                <div>
+                    <span class="font-display font-bold text-sm tracking-widest text-gray-300 block">MAYRA FERRAZ</span>
+                    <span class="font-mono text-xs text-neonYellow-400">Gerente de Projetos | Encora Jobs</span>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-6 font-mono text-xs">
+                <a href="#about" class="text-gray-400 hover:text-neonYellow-400 transition-colors">./sobre</a>
+                <a href="#experience" class="text-gray-400 hover:text-neonYellow-400 transition-colors">./experiência</a>
+                <a href="#formacao" class="text-gray-400 hover:text-neonYellow-400 transition-colors">./formação</a>
+                <a href="#pesquisa" class="text-gray-400 hover:text-neonYellow-400 transition-colors">./pesquisa</a>
+                <a href="#codigo" class="text-gray-400 hover:text-neonYellow-400 transition-colors">./código</a>
+                <a href="#sintetizador" class="text-gray-400 hover:text-neonYellow-400 transition-colors">./sintetizador</a>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <span class="px-3 py-1 rounded-full text-xs font-mono bg-cyberCard border border-neonYellow-400/40 text-neonYellow-400 animate-pulse">
+                    ● Encora Jobs
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+
+        <!-- Hero Section -->
+        <section id="about" class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pt-8">
+            <div class="lg:col-span-7 space-y-6">
+                <div class="inline-flex items-center space-x-2 font-mono text-xs text-neonYellow-400 bg-cyberCard px-3 py-1 rounded border border-neonYellow-400/30">
+                    <span>$</span>
+                    <span>whoami --encora --quantum</span>
+                </div>
+                <h1 class="font-display text-4xl sm:text-6xl font-black tracking-tight text-white">
+                    MAYRA <span class="text-neonYellow-400 neon-glow">FERRAZ</span>
+                </h1>
+                <p class="text-lg text-gray-300 font-sans leading-relaxed">
+                    Gerente de Projetos de Software na <span class="text-neonYellow-400 font-semibold">Encora Jobs</span> e Cientista da Computação. Especialista em gestão de equipes de alta performance, arquitetura de software escalável e pesquisas avançadas em Computação Quântica, integrando rigor científico e liderança técnica.
+                </p>
+                <div class="flex flex-wrap gap-3 pt-2 font-mono text-xs">
+                    <span class="px-3 py-1.5 bg-cyberCard border border-cyberBorder rounded text-gray-300">Gestão de Projetos</span>
+                    <span class="px-3 py-1.5 bg-cyberCard border border-cyberBorder rounded text-gray-300">Agile / Scrum</span>
+                    <span class="px-3 py-1.5 bg-cyberCard border border-cyberBorder rounded text-gray-300">Qiskit / Q#</span>
+                    <span class="px-3 py-1.5 bg-cyberCard border border-cyberBorder rounded text-gray-300">C / C++ / Java / Python</span>
+                </div>
+            </div>
+
+            <!-- Interactive Qubit Array -->
+            <div class="lg:col-span-5 bg-cyberCard rounded-xl p-6 box-glow relative overflow-hidden flex flex-col justify-between h-80">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="font-display text-base font-bold text-white">Matriz de Qubits Interativos</h3>
+                        <span class="font-mono text-xs text-neonYellow-400 animate-pulse">● BLOCH STATE</span>
+                    </div>
+                    <p class="text-xs text-gray-400 font-mono mb-4">Clique nos nós para alternar superposições quânticas e verificar o vetor global.</p>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-3">
+                    <div onclick="toggleQubit(0)" id="q0" class="qubit-node bg-cyberDark p-3 rounded-lg border border-cyberBorder text-center cursor-pointer">
+                        <div class="font-mono text-[10px] text-gray-400">Qubit 0</div>
+                        <div id="q0-val" class="font-mono text-xs text-neonYellow-400 font-bold mt-1">|0⟩</div>
+                    </div>
+                    <div onclick="toggleQubit(1)" id="q1" class="qubit-node bg-cyberDark p-3 rounded-lg border border-cyberBorder text-center cursor-pointer">
+                        <div class="font-mono text-[10px] text-gray-400">Qubit 1</div>
+                        <div id="q1-val" class="font-mono text-xs text-neonYellow-400 font-bold mt-1">|0⟩</div>
+                    </div>
+                    <div onclick="toggleQubit(2)" id="q2" class="qubit-node bg-cyberDark p-3 rounded-lg border border-cyberBorder text-center cursor-pointer">
+                        <div class="font-mono text-[10px] text-gray-400">Qubit 2</div>
+                        <div id="q2-val" class="font-mono text-xs text-neonYellow-400 font-bold mt-1">|0⟩</div>
+                    </div>
+                </div>
+
+                <div class="bg-cyberDark px-3 py-2 rounded border border-cyberBorder font-mono text-[11px] text-gray-300 flex items-center justify-between">
+                    <span>Vetor de Estado Quântico:</span>
+                    <span id="globalStateLabel" class="text-neonYellow-400 font-bold">|000⟩</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Professional Experience Section -->
+        <section id="experience" class="space-y-8">
+            <div class="border-b border-cyberBorder pb-4 flex items-center justify-between">
+                <div>
+                    <h2 class="font-display text-2xl font-bold text-white flex items-center space-x-3">
+                        <span class="text-neonYellow-400 font-mono text-xl">01.</span>
+                        <span>Experiência Profissional</span>
+                    </h2>
+                    <p class="text-sm text-gray-400 font-mono mt-1">Liderança de projetos de software e gestão técnica em nível corporativo.</p>
+                </div>
+            </div>
+
+            <div class="bg-cyberCard p-8 rounded-xl border border-cyberBorder box-glow space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-cyberBorder pb-6">
+                    <div>
+                        <span class="font-mono text-xs px-3 py-1 rounded bg-neonYellow-400/10 text-neonYellow-400 border border-neonYellow-400/30">Cargo Atual</span>
+                        <h3 class="font-display text-xl font-bold text-white mt-3">Gerente de Projetos de Software</h3>
+                        <p class="text-sm text-neonYellow-400 font-mono mt-1">Encora Jobs</p>
+                    </div>
+                    <div class="text-right font-mono text-xs text-gray-400">
+                        <div>Atuação Estratégica</div>
+                        <div class="text-white mt-1">Metodologias Ágeis & Enterprise</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+                    <div class="bg-cyberDark p-4 rounded-lg border border-cyberBorder">
+                        <div class="text-gray-400 mb-1">Escopo de Liderança</div>
+                        <div class="text-sm font-bold text-white">Equipes Multidisciplinares de Dev</div>
+                    </div>
+                    <div class="bg-cyberDark p-4 rounded-lg border border-cyberBorder">
+                        <div class="text-gray-400 mb-1">Foco de Entrega</div>
+                        <div class="text-sm font-bold text-neonYellow-400">Arquitetura de Alta Performance</div>
+                    </div>
+                    <div class="bg-cyberDark p-4 rounded-lg border border-cyberBorder">
+                        <div class="text-gray-400 mb-1">Alinhamento Técnico</div>
+                        <div class="text-sm font-bold text-purple-400">Inovação & Sistemas Complexos</div>
+                    </div>
+                </div>
+
+                <p class="text-sm text-gray-300 leading-relaxed font-sans">
+                    Responsável pelo direcionamento estratégico, planejamento de entregas, gestão de stakeholders e condução de ciclos de desenvolvimento de software de alta complexidade na Encora Jobs, garantindo excelência técnica, qualidade de código e alinhamento com os objetivos globais dos clientes.
+                </p>
+            </div>
+        </section>
+
+        <!-- Academic Credentials Section -->
+        <section id="formacao" class="space-y-8">
+            <div class="border-b border-cyberBorder pb-4 flex items-center justify-between">
+                <div>
+                    <h2 class="font-display text-2xl font-bold text-white flex items-center space-x-3">
+                        <span class="text-neonYellow-400 font-mono text-xl">02.</span>
+                        <span>Formação Acadêmica (UNICAMP)</span>
+                    </h2>
+                    <p class="text-sm text-gray-400 font-mono mt-1">Titulações acadêmicas e pesquisas em andamento.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Doutorado -->
+                <div class="bg-cyberCard p-6 rounded-xl border border-cyberBorder box-glow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-mono text-xs px-2.5 py-1 rounded bg-neonYellow-400/10 text-neonYellow-400 border border-neonYellow-400/30">Em Andamento</span>
+                        </div>
+                        <h3 class="font-display font-bold text-base text-white mb-1">Doutorado em Computação Quântica</h3>
+                        <p class="text-xs text-gray-400 font-mono mb-3">UNICAMP</p>
+                        <p class="text-xs text-gray-300">Pesquisa avançada em portas lógicas quânticas, algoritmos variacionais e correção de erros.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cyberBorder font-mono text-[11px] text-neonYellow-400">
+                        <span>> Doutorado Ativo</span>
+                    </div>
+                </div>
+
+                <!-- Mestrado -->
+                <div class="bg-cyberCard p-6 rounded-xl border border-cyberBorder box-glow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-mono text-xs px-2.5 py-1 rounded bg-blue-500/10 text-blue-400 border border-blue-500/30">Concluído</span>
+                        </div>
+                        <h3 class="font-display font-bold text-base text-white mb-1">Mestrado em Ciência da Computação</h3>
+                        <p class="text-xs text-gray-400 font-mono mb-3">UNICAMP | Foco: Computação Quântica</p>
+                        <p class="text-xs text-gray-300">Dissertação voltada para arquiteturas de computação quântica e modelagem matemática avançada.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cyberBorder font-mono text-[11px] text-blue-400">
+                        <span>> Titulação Defendida</span>
+                    </div>
+                </div>
+
+                <!-- Bacharelado CC -->
+                <div class="bg-cyberCard p-6 rounded-xl border border-cyberBorder box-glow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-mono text-xs px-2.5 py-1 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">Concluído</span>
+                        </div>
+                        <h3 class="font-display font-bold text-base text-white mb-1">Bacharelado em Ciência da Computação</h3>
+                        <p class="text-xs text-gray-400 font-mono mb-3">UNICAMP</p>
+                        <p class="text-xs text-gray-300">Fundamentos sólidos de algoritmos, estruturas de dados, compiladores e arquitetura de computadores.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cyberBorder font-mono text-[11px] text-cyan-400">
+                        <span>> Formação Concluída</span>
+                    </div>
+                </div>
+
+                <!-- ADS -->
+                <div class="bg-cyberCard p-6 rounded-xl border border-cyberBorder box-glow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-mono text-xs px-2.5 py-1 rounded bg-purple-500/10 text-purple-400 border border-purple-500/30">Concluído</span>
+                        </div>
+                        <h3 class="font-display font-bold text-base text-white mb-1">Tecnólogo em Análise e Desenvolvimento de Sistemas</h3>
+                        <p class="text-xs text-gray-400 font-mono mb-3">UNICAMP</p>
+                        <p class="text-xs text-gray-300">Desenvolvimento robusto de sistemas, arquitetura de software e engenharia de dados.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cyberBorder font-mono text-[11px] text-purple-400">
+                        <span>> Formação Concluída</span>
+                    </div>
+                </div>
+
+                <!-- Música -->
+                <div class="bg-cyberCard p-6 rounded-xl border border-cyberBorder box-glow flex flex-col justify-between md:col-span-2 lg:col-span-1">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-mono text-xs px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Concluído</span>
+                        </div>
+                        <h3 class="font-display font-bold text-base text-white mb-1">Licenciatura em Música</h3>
+                        <p class="text-xs text-gray-400 font-mono mb-3">UNICAMP | Foco: Acústica e Teoria Harmônica</p>
+                        <p class="text-xs text-gray-300">Estudo profundo de frequências, ondas sonoras, harmônicos e síntese de áudio computacional.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cyberBorder font-mono text-[11px] text-emerald-400">
+                        <span>> Formação Concluída</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quantum Simulator Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-6 space-y-6">
+                <div class="border-b border-cyberBorder pb-4">
+                    <h2 class="font-display text-2xl font-bold text-white flex items-center space-x-3">
+                        <span class="text-neonYellow-400 font-mono text-xl">03.</span>
+                        <span>Simulador Quântico & Vetores de Estado</span>
+                    </h2>
+                    <p class="text-sm text-gray-400 font-mono mt-1">Análise em tempo real de distribuições probabilísticas baseadas em superposição.</p>
+                </div>
+                <p class="text-gray-300 text-sm leading-relaxed">
+                    Este painel simula o comportamento estocástico de qubits. Ao interagir com os estados lógicos no topo da página, o gráfico ao lado recalcula dinamicamente as probabilidades de colapso de onda.
+                </p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-cyberCard p-4 rounded-xl border border-cyberBorder font-mono">
+                        <div class="text-xs text-gray-400">Fidelidade do Vetor</div>
+                        <div id="fidelityVal" class="text-lg font-bold text-neonYellow-400 mt-1">99.94%</div>
+                    </div>
+                    <div class="bg-cyberCard p-4 rounded-xl border border-cyberBorder font-mono">
+                        <div class="text-xs text-gray-400">Operadores Ativos</div>
+                        <div id="gatesVal" class="text-lg font-bold text-neonYellow-400 mt-1">Hadamard + CNOT</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-6 bg-cyberCard p-6 rounded-xl border border-cyberBorder box-glow">
+                <h3 class="font-display text-sm font-bold text-white mb-4 flex items-center justify-between">
+                    <span>Distribuição de Probabilidade do Vetor Quântico</span>
+                    <span class="font-mono text-xs text-neonYellow-400">Chart.js Engine</span>
+                </h3>
+                <div class="h-64 relative">
+                    <canvas id="quantumChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Section: Medicine & Agribusiness -->
+        <section id="pesquisa" class="space-y-8">
+            <div class="border-b border-cyberBorder pb-4">
+                <h2 class="font-display text-2xl font-bold text-white flex items-center space-x-3">
+                    <span class="text-neonYellow-400 font-mono text-xl">04.</span>
+                    <span>Pesquisa Quântica Aplicada: Medicina & Agronegócio</span>
+                </h2>
+                <p class="text-sm text-gray-400 font-mono mt-1">Explorando o potencial da computação quântica em sequenciamento genético e agricultura de precisão.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Medicine & DNA -->
+                <div class="bg-cyberCard p-6 rounded-xl border border-cyberBorder box-glow flex flex-col justify-between space-y-6">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono text-xs px-3 py-1 rounded bg-purple-500/10 text-purple-400 border border-purple-500/30">Medicina & Genômica</span>
+                            <span class="font-mono text-xs text-neonYellow-400">Simulação de DNA</span>
+                        </div>
+                        <h3 class="font-display text-lg font-bold text-white mb-2">Computação Quântica no Sequenciamento de DNA e Proteínas</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed mb-4">
+                            Investigação de algoritmos quânticos aplicados ao dobramento de proteínas, alinhamento de sequências genéticas complexas e descoberta molecular acelerada, reduzindo drasticamente o tempo computacional em relação aos supercomputadores clássicos.
+                        </p>
+                    </div>
+
+                    <div class="bg-cyberDark p-4 rounded-lg border border-cyberBorder font-mono text-xs space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-400">Simulador de Sequenciamento Genético:</span>
+                            <button onclick="runDNASimulation()" class="px-3 py-1 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/40 rounded transition-all">Executar Análise</button>
+                        </div>
+                        <div id="dnaConsole" class="text-[11px] text-gray-300 bg-cyberCard p-3 rounded border border-cyberBorder h-24 overflow-y-auto">
+                            $ Status: Pronto para mapear cadeias de DNA com qubits.<br>
+                            $ Clique em "Executar Análise" para rodar o algoritmo quântico.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agribusiness -->
+                <div class="bg-cyberCard p-6 rounded-xl border border-cyberBorder box-glow flex flex-col justify-between space-y-6">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono text-xs px-3 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Agronegócio & Plantação</span>
+                            <span class="font-mono text-xs text-neonYellow-400">Otimização Quântica</span>
+                        </div>
+                        <h3 class="font-display text-lg font-bold text-white mb-2">Otimização de Lavouras e Alocação de Recursos via Qubits</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed mb-4">
+                            Aplicação de recozimento quântico para planejamento de plantio inteligente, previsão de estresse hídrico, simulação de fertilizantes nitrogenados e logística avançada de escoamento de safras agrícolas.
+                        </p>
+                    </div>
+
+                    <div class="bg-cyberDark p-4 rounded-lg border border-cyberBorder font-mono text-xs space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-400">Simulador de Otimização Agrícola:</span>
+                            <button onclick="runAgriSimulation()" class="px-3 py-1 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 rounded transition-all">Calcular Safra</button>
+                        </div>
+                        <div id="agriConsole" class="text-[11px] text-gray-300 bg-cyberCard p-3 rounded border border-cyberBorder h-24 overflow-y-auto">
+                            $ Status: Sensores de solo e clima conectados ao simulador.<br>
+                            $ Clique em "Calcular Safra" para otimizar a matriz de plantio.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Sandbox Section -->
+        <section id="codigo" class="space-y-6">
+            <div class="border-b border-cyberBorder pb-4">
+                <h2 class="font-display text-2xl font-bold text-white flex items-center space-x-3">
+                    <span class="text-neonYellow-400 font-mono text-xl">05.</span>
+                    <span>Laboratório de Código (Java, C, C++, Python)</span>
+                </h2>
+                <p class="text-sm text-gray-400 font-mono mt-1">Ambiente interativo com modelos de código em múltiplas linguagens.</p>
+            </div>
+
+            <div class="bg-cyberCard rounded-xl border border-cyberBorder overflow-hidden box-glow">
+                <div class="bg-cyberDark px-4 pt-3 border-b border-cyberBorder flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex space-x-2 font-mono text-xs">
+                        <button onclick="switchTab('python')" id="btn-python" class="px-4 py-2 rounded-t bg-cyberCard border-t border-x border-cyberBorder text-neonYellow-400 font-bold transition-all">Python (Qiskit)</button>
+                        <button onclick="switchTab('java')" id="btn-java" class="px-4 py-2 rounded-t bg-cyberDark text-gray-400 hover:text-white transition-all">Java (Sistemas)</button>
+                        <button onclick="switchTab('cpp')" id="btn-cpp" class="px-4 py-2 rounded-t bg-cyberDark text-gray-400 hover:text-white transition-all">C++ (Performance)</button>
+                        <button onclick="switchTab('c')" id="btn-c" class="px-4 py-2 rounded-t bg-cyberDark text-gray-400 hover:text-white transition-all">C (Baixo Nível)</button>
+                    </div>
+                    <button onclick="executeSandboxCode()" class="px-4 py-1.5 mb-2 rounded bg-neonYellow-400 hover:bg-neonYellow-300 text-black font-mono text-xs font-bold transition-all flex items-center space-x-2">
+                        <span>▶ EXECUTAR CÓDIGO</span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12">
+                    <div class="lg:col-span-7 p-4 font-mono text-xs bg-[#050914] text-gray-300 overflow-x-auto leading-relaxed border-r border-cyberBorder h-64">
+                        <pre id="codeSnippetView"><code><span class="text-purple-400">from</span> qiskit <span class="text-purple-400">import</span> QuantumCircuit
+
+<span class="text-gray-500"># Algoritmo Quântico de Emaranhamento</span>
+circuit = QuantumCircuit(2, 2)
+circuit.h(0)
+circuit.cx(0, 1)
+circuit.measure([0, 1], [0, 1])
+
+<span class="text-purple-400">print</span>(<span class="text-green-300">"Circuito Quântico simulado em Python com sucesso."</span>)</code></pre>
+                    </div>
+                    <div class="lg:col-span-5 p-4 bg-cyberCard font-mono text-xs flex flex-col justify-between h-64">
+                        <div>
+                            <span class="text-gray-400 block mb-2 font-bold">Console de Execução:</span>
+                            <div id="sandboxConsole" class="bg-cyberDark p-3 rounded border border-cyberBorder text-gray-300 h-36 overflow-y-auto leading-normal">
+                                $ Ambiente pronto.<br>
+                                $ Selecione uma aba e clique em "EXECUTAR CÓDIGO".
+                            </div>
+                        </div>
+                        <div class="pt-3 border-t border-cyberBorder flex items-center justify-between text-[11px] text-gray-400">
+                            <span id="activeLangLabel">Linguagem: Python</span>
+                            <span class="text-neonYellow-400 font-bold">Status: Online</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Music Lab: Synthesizer & Sheet Music Reader -->
+        <section id="sintetizador" class="space-y-8">
+            <div class="border-b border-cyberBorder pb-4">
+                <h2 class="font-display text-2xl font-bold text-white flex items-center space-x-3">
+                    <span class="text-neonYellow-400 font-mono text-xl">06.</span>
+                    <span>Laboratório Musical & Sintetizador Quântico</span>
+                </h2>
+                <p class="text-sm text-gray-400 font-mono mt-1">Conectando a Licenciatura em Música com a computação através de síntese de áudio e partituras interativas.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Sheet Music Reader -->
+                <div class="lg:col-span-6 bg-cyberCard p-6 rounded-xl border border-cyberBorder box-glow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-display text-base font-bold text-white">Leitor de Partitura Interativo</h3>
+                            <span class="font-mono text-xs text-neonYellow-400">Modo Acústico</span>
+                        </div>
+                        <p class="text-xs text-gray-300 mb-6">Visualizador de partituras e frequências harmônicas baseadas em ondas senoidais puras.</p>
+                        
+                        <!-- Sheet Staff Representation -->
+                        <div class="bg-cyberDark p-6 rounded-lg border border-cyberBorder space-y-4">
+                            <div class="relative h-20 flex items-center justify-between px-4 border-y border-cyberBorder">
+                                <div class="absolute inset-y-0 inset-x-0 flex flex-col justify-between py-2 pointer-events-none opacity-40">
+                                    <div class="w-full h-[1px] bg-gray-400"></div>
+                                    <div class="w-full h-[1px] bg-gray-400"></div>
+                                    <div class="w-full h-[1px] bg-gray-400"></div>
+                                    <div class="w-full h-[1px] bg-gray-400"></div>
+                                    <div class="w-full h-[1px] bg-gray-400"></div>
+                                </div>
+                                <span id="noteIndicator1" class="z-10 font-mono text-2xl text-neonYellow-400 transition-all">𝅗𝅥</span>
+                                <span id="noteIndicator2" class="z-10 font-mono text-2xl text-gray-500 transition-all">𝅗𝅥</span>
+                                <span id="noteIndicator3" class="z-10 font-mono text-2xl text-gray-500 transition-all">𝅗𝅥</span>
+                                <span id="noteIndicator4" class="z-10 font-mono text-2xl text-gray-500 transition-all">𝅗𝅥</span>
+                            </div>
+                            <div class="flex justify-between font-mono text-xs text-gray-400">
+                                <span id="currentNoteName">Nota: C4 (261.63 Hz)</span>
+                                <button onclick="playSheetMelody()" class="px-3 py-1 bg-neonYellow-400 text-black font-bold rounded hover:bg-neonYellow-300 transition-all">▶ Tocar Partitura</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cyberBorder font-mono text-[11px] text-gray-400">
+                        <span>> Frequências geradas via Web Audio API</span>
+                    </div>
+                </div>
+
+                <!-- Interactive Synthesizer Keyboard -->
+                <div class="lg:col-span-6 bg-cyberCard p-6 rounded-xl border border-cyberBorder box-glow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-display text-base font-bold text-white">Teclado Sintetizador Web</h3>
+                            <span class="font-mono text-xs text-neonYellow-400">Ativo</span>
+                        </div>
+                        <p class="text-xs text-gray-300 mb-6">Clique nas teclas abaixo para disparar frequências reais de áudio estéreo.</p>
+                        
+                        <!-- Piano Keys Grid -->
+                        <div class="grid grid-cols-7 gap-2 bg-cyberDark p-4 rounded-lg border border-cyberBorder h-36 items-center">
+                            <button onclick="playTone(261.63, 'C4')" class="piano-key h-28 bg-gray-100 hover:bg-neonYellow-300 rounded flex flex-col justify-end pb-3 items-center text-black font-mono text-xs font-bold shadow"><span>C4</span></button>
+                            <button onclick="playTone(293.66, 'D4')" class="piano-key h-28 bg-gray-100 hover:bg-neonYellow-300 rounded flex flex-col justify-end pb-3 items-center text-black font-mono text-xs font-bold shadow"><span>D4</span></button>
+                            <button onclick="playTone(329.63, 'E4')" class="piano-key h-28 bg-gray-100 hover:bg-neonYellow-300 rounded flex flex-col justify-end pb-3 items-center text-black font-mono text-xs font-bold shadow"><span>E4</span></button>
+                            <button onclick="playTone(349.23, 'F4')" class="piano-key h-28 bg-gray-100 hover:bg-neonYellow-300 rounded flex flex-col justify-end pb-3 items-center text-black font-mono text-xs font-bold shadow"><span>F4</span></button>
+                            <button onclick="playTone(392.00, 'G4')" class="piano-key h-28 bg-gray-100 hover:bg-neonYellow-300 rounded flex flex-col justify-end pb-3 items-center text-black font-mono text-xs font-bold shadow"><span>G4</span></button>
+                            <button onclick="playTone(440.00, 'A4')" class="piano-key h-28 bg-gray-100 hover:bg-neonYellow-300 rounded flex flex-col justify-end pb-3 items-center text-black font-mono text-xs font-bold shadow"><span>A4</span></button>
+                            <button onclick="playTone(493.88, 'B4')" class="piano-key h-28 bg-gray-100 hover:bg-neonYellow-300 rounded flex flex-col justify-end pb-3 items-center text-black font-mono text-xs font-bold shadow"><span>B4</span></button>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-cyberBorder flex items-center justify-between font-mono text-[11px]">
+                        <span id="synthStatus" class="text-neonYellow-400">Status: Aguardando input...</span>
+                        <span class="text-gray-400">Waveform: Sine</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-cyberBorder mt-24 bg-cyberCard py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-gray-400">
+            <div>© 2026 Mayra Ferraz. Todos os direitos reservados.</div>
+            <div class="mt-4 sm:mt-0 flex space-x-6">
+                <a href="#about" class="hover:text-neonYellow-400 transition-colors">GitHub</a>
+                <a href="#about" class="hover:text-neonYellow-400 transition-colors">LinkedIn</a>
+                <a href="#about" class="hover:text-neonYellow-400 transition-colors">Google Scholar</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Qubit states
+        let qubitStates = [0, 0, 0];
+
+        function toggleQubit(index) {
+            qubitStates[index] = (qubitStates[index] + 1) % 3;
+            const valElem = document.getElementById(`q${index}-val`);
+            
+            if (qubitStates[index] === 0) {
+                valElem.innerText = "|0⟩";
+                valElem.className = "font-mono text-xs text-neonYellow-400 font-bold mt-1";
+            } else if (qubitStates[index] === 1) {
+                valElem.innerText = "|1⟩";
+                valElem.className = "font-mono text-xs text-blue-400 font-bold mt-1";
+            } else {
+                valElem.innerText = "|+⟩ (Sup)";
+                valElem.className = "font-mono text-xs text-purple-400 font-bold mt-1";
+            }
+
+            updateGlobalState();
+            updateQuantumChart();
+        }
+
+        function updateGlobalState() {
+            let binaryStr = qubitStates.map(s => s === 1 ? '1' : (s === 2 ? '+' : '0')).join('');
+            document.getElementById('globalStateLabel').innerText = `|${binaryStr}⟩`;
+        }
+
+        // Chart.js initialization
+        let quantumChartInstance = null;
+
+        function initQuantumChart() {
+            const ctx = document.getElementById('quantumChart').getContext('2d');
+            const dataValues = [100, 0, 0, 0, 0, 0, 0, 0];
+
+            quantumChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['|000⟩', '|001⟩', '|010⟩', '|011⟩', '|100⟩', '|101⟩', '|110⟩', '|111⟩'],
+                    datasets: [{
+                        label: 'Probabilidade (%)',
+                        data: dataValues,
+                        backgroundColor: '#ffe600',
+                        borderColor: '#b89e00',
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: '#1e293b' },
+                            ticks: { color: '#9ca3af', font: { family: 'Fira Code', size: 10 } }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#9ca3af', font: { family: 'Fira Code', size: 10 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        function updateQuantumChart() {
+            if (!quantumChartInstance) return;
+
+            let newData = [0, 0, 0, 0, 0, 0, 0, 0];
+            let activeSuperpositions = qubitStates.filter(s => s === 2).length;
+            
+            if (activeSuperpositions === 0) {
+                let idx = 0;
+                if (qubitStates[0] === 1) idx += 4;
+                if (qubitStates[1] === 1) idx += 2;
+                if (qubitStates[2] === 1) idx += 1;
+                newData[idx] = 100;
+            } else {
+                let spread = 100 / Math.pow(2, activeSuperpositions);
+                for (let i = 0; i < 8; i++) {
+                    newData[i] = spread;
+                }
+            }
+
+            quantumChartInstance.data.datasets[0].data = newData;
+            quantumChartInstance.update();
+        }
+
+        // DNA Simulation
+        function runDNASimulation() {
+            const consoleBox = document.getElementById('dnaConsole');
+            consoleBox.innerHTML = '$ Inicializando operador de busca quântica (Grover)...<br>$ Analisando cadeias de nucleotídeos em paralelo...';
+            
+            setTimeout(() => {
+                consoleBox.innerHTML += '<br>$ Mapeamento estrutural de proteínas concluído com aceleração quadrática.';
+                consoleBox.innerHTML += '<br><span class="text-purple-400">$ Mutação identificada com fidelidade de 99.91%.</span>';
+                consoleBox.scrollTop = consoleBox.scrollHeight;
+            }, 1000);
+        }
+
+        // Agritech Simulation
+        function runAgriSimulation() {
+            const consoleBox = document.getElementById('agriConsole');
+            consoleBox.innerHTML = '$ Carregando variáveis climáticas e topografia do solo...<br>$ Executando algoritmo de otimização combinatória...';
+            
+            setTimeout(() => {
+                consoleBox.innerHTML += '<br>$ Matriz de irrigação e rotação de culturas otimizada.';
+                consoleBox.innerHTML += '<br><span class="text-emerald-400">$ Ganho estimado de produtividade da safra: +24.8%.</span>';
+                consoleBox.scrollTop = consoleBox.scrollHeight;
+            }, 1000);
+        }
+
+        // Code Sandbox Snippets
+        const codeSnippets = {
+            python: `<span class="text-purple-400">from</span> qiskit <span class="text-purple-400">import</span> QuantumCircuit
+
+<span class="text-gray-500"># Algoritmo Quântico de Emaranhamento</span>
+circuit = QuantumCircuit(2, 2)
+circuit.h(0)
+circuit.cx(0, 1)
+circuit.measure([0, 1], [0, 1])
+
+<span class="text-purple-400">print</span>(<span class="text-green-300">"Circuito Quântico simulado em Python com sucesso."</span>)`,
+            java: `<span class="text-purple-400">public class</span> <span class="text-yellow-300">QuantumRegister</span> {
+    <span class="text-purple-400">private</span> <span class="text-blue-400">int</span> qubitCount;
+    
+    <span class="text-purple-400">public</span> <span class="text-yellow-300">QuantumRegister</span>(<span class="text-blue-400">int</span> count) {
+        <span class="text-blue-400">this</span>.qubitCount = count;
+        System.out.println(<span class="text-green-300">"Registrador quântico inicializado: "</span> + count);
+    }
+}`,
+            cpp: `<span class="text-purple-400">#include</span> <span class="text-green-300">&lt;iostream&gt;</span>
+<span class="text-purple-400">#include</span> <span class="text-green-300">&lt;vector&gt;</span>
+
+<span class="text-blue-400">int</span> <span class="text-yellow-300">main</span>() {
+    std::vector&lt;<span class="text-blue-400">double</span>&gt; state_vector = {0.7071, 0.0, 0.0, 0.7071};
+    std::cout &lt;&lt; <span class="text-green-300">"Estado superposto alocado em C++ com alta performance."</span> &lt;&lt; std::endl;
+    <span class="text-purple-400">return</span> 0;
+}`,
+            c: `<span class="text-purple-400">#include</span> <span class="text-green-300">&lt;stdio.h&gt;</span>
+
+<span class="text-blue-400">int</span> <span class="text-yellow-300">main</span>() {
+    printf(<span class="text-green-300">"[C Kernel] Alocação de memória de baixo nível para matrizes de qubits.\\n"</span>);
+    <span class="text-purple-400">return</span> 0;
+}`
+        };
+
+        let currentActiveLang = 'python';
+
+        function switchTab(lang) {
+            currentActiveLang = lang;
+            const langs = ['python', 'java', 'cpp', 'c'];
+            
+            langs.forEach(l => {
+                const btn = document.getElementById(`btn-${l}`);
+                if (l === lang) {
+                    btn.className = "px-4 py-2 rounded-t bg-cyberCard border-t border-x border-cyberBorder text-neonYellow-400 font-bold transition-all";
+                } else {
+                    btn.className = "px-4 py-2 rounded-t bg-cyberDark text-gray-400 hover:text-white transition-all";
+                }
+            });
+
+            document.getElementById('codeSnippetView').innerHTML = `<code>${codeSnippets[lang]}</code>`;
+            document.getElementById('activeLangLabel').innerText = `Linguagem: ${lang.toUpperCase()}`;
+            document.getElementById('sandboxConsole').innerHTML = `$ Carregando ambiente ${lang.toUpperCase()}...<br>$ Pronto para execução.`;
+        }
+
+        function executeSandboxCode() {
+            const consoleBox = document.getElementById('sandboxConsole');
+            consoleBox.innerHTML = `$ Compilando código em ${currentActiveLang.toUpperCase()}...`;
+            
+            setTimeout(() => {
+                if (currentActiveLang === 'python') {
+                    consoleBox.innerHTML += '<br>$ Executando Qiskit QPU Simulator...<br><span class="text-neonYellow-400">$ Output: {\'00\': 512, \'11\': 512}</span>';
+                } else if (currentActiveLang === 'java') {
+                    consoleBox.innerHTML += '<br>$ Executando JVM Bytecode...<br><span class="text-neonYellow-400">$ Output: Registrador quântico inicializado: 2</span>';
+                } else if (currentActiveLang === 'cpp') {
+                    consoleBox.innerHTML += '<br>$ Executando binário O3 optimized...<br><span class="text-neonYellow-400">$ Output: Estado superposto alocado em C++ com alta performance.</span>';
+                } else {
+                    consoleBox.innerHTML += '<br>$ Executando binário C bare-metal...<br><span class="text-neonYellow-400">$ Output: [C Kernel] Alocação de memória de baixo nível para matrizes de qubits.</span>';
+                }
+                consoleBox.scrollTop = consoleBox.scrollHeight;
+            }, 800);
+        }
+
+        // Web Audio Synthesizer & Sheet Melody
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioCtx;
+        }
+
+        function playTone(freq, noteName) {
+            try {
+                const ctx = getAudioContext();
+                if (ctx.state === 'suspended') {
+                    ctx.resume();
+                }
+
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, ctx.currentTime);
+
+                gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.8);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start();
+                osc.stop(ctx.currentTime + 0.8);
+
+                document.getElementById('synthStatus').innerText = `Nota Tocada: ${noteName} (${freq} Hz)`;
+            } catch (e) {
+                console.error("Audio playback error:", e);
+            }
+        }
+
+        function playSheetMelody() {
+            const melody = [
+                {freq: 261.63, name: 'C4', noteId: 'noteIndicator1'},
+                {freq: 329.63, name: 'E4', noteId: 'noteIndicator2'},
+                {freq: 392.00, name: 'G4', noteId: 'noteIndicator3'},
+                {freq: 523.25, name: 'C5', noteId: 'noteIndicator4'}
+            ];
+
+            melody.forEach((item, index) => {
+                setTimeout(() => {
+                    playTone(item.freq, item.name);
+                    document.getElementById('currentNoteName').innerText = `Nota: ${item.name} (${item.freq} Hz)`;
+                    
+                    melody.forEach(m => document.getElementById(m.noteId).className = "z-10 font-mono text-2xl text-gray-500 transition-all");
+                    document.getElementById(item.noteId).className = "z-10 font-mono text-2xl text-neonYellow-400 scale-125 transition-all";
+                }, index * 400);
+            });
+        }
+
+        window.onload = function() {
+            initQuantumChart();
+        };
+    </script>
+</body>
+</html>
